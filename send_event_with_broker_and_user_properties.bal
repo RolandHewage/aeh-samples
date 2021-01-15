@@ -9,10 +9,13 @@ public function main() {
         resourceUri: config:getAsString("RESOURCE_URI") 
     };
     azure_eventhub:Client c = new (config);
-    
-    var b = c->send("myeventhub", "eventData");
+
+    map<string> brokerProps = {"CorrelationId": "32119834", "CorrelationId2": "32119834"};
+    map<string> userProps = {Alert: "windy", warning: "true"};
+
+    var b = c->send("myeventhub", "eventData", userProps, brokerProps);
     if (b is error) {
-        log:printError(msg = b.message());
+        log:printError(b.message());
     } else {
         log:print("Successful!");
     }
