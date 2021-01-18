@@ -22,7 +22,7 @@ public function main() {
     };
     var b = c->sendBatch("myeventhub", batchEvent, partitionId=1);
     if (b is error) {
-        log:printError(msg = b.message());
+        log:printError(b.message());
     } else {
         log:print("Successful!");
     }
