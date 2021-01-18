@@ -12,7 +12,7 @@ public function main() {
 
     var b = c->listPartitions("myeventhub", "consumerGroup1");
     if (b is error) {
-        log:printError(msg = b.message());
+        log:printError(b.message());
     }
     if (b is xml) {
         log:print("successful");
