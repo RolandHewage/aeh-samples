@@ -1,6 +1,7 @@
 import ballerinax/azure_eventhub;
 import ballerina/config;
 import ballerina/log;
+import ballerina/jsonutils;
 
 public function main() {
     azure_eventhub:ClientEndpointConfiguration config = {
@@ -10,12 +11,14 @@ public function main() {
     };
     azure_eventhub:Client c = new (config);
 
-    var b = c->revokePublisher("myeventhub", "device-1");
+    var b = c->getRevokedPublishers("myeventhub");
     if (b is error) {
         log:printError(b.message());
     }
     if (b is xml) {
-        log:print(b.toString());
+        log:print("listReceived");
+        json|error signedIdentifiers = jsonutils:fromXML(b);
+        log:print(signedIdentifiers.toString());
         log:print("Successful!");
     }
 }
