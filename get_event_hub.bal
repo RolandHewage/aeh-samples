@@ -10,7 +10,7 @@ public function main() {
     };
     azure_eventhub:Client c = new (config);
 
-    var b = c->createEventHub("myhub");
+    var b = c->getEventHub("myhub");
     if (b is error) {
         log:printError(b.message());
     }
